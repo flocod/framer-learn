@@ -17,26 +17,35 @@ const AnimationControls = () => {
         gap: "0.8rem",
       }}
     >
-      <button onClick={handleClick} className="example-button">
-        Flip it!
+
+      <button
+        onClick={handleClick}
+        className="example-button">
+        Flit it!
       </button>
+
       <motion.div
+
         style={{
           width: 150,
-          height: 150,
-          background: "black",
+          height: 150, background: "black"
         }}
+
         variants={{
           initial: {
-            rotate: "0deg",
+            rotate: '0deg'
           },
           flip: {
-            rotate: "360deg",
+            rotate: '360deg'
           },
         }}
-        initial="initial"
+        initial='initial'
         animate={controls}
-      ></motion.div>
+      >
+
+
+      </motion.div>
+
     </div>
   );
 };

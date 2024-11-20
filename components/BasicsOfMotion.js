@@ -1,57 +1,74 @@
+"use client"
+
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const BasicsOfMotion = () => {
   const [isVisible, setIsVisible] = useState(true);
+  let fullWidth, fullHeight
+
+  if (typeof window !== "undefined") {
+
+    fullWidth = window.innerWidth;
+    fullHeight = window.innerHeight;
+  } else {
+    fullWidth = 150;
+    fullHeight = 150;
+  }
+
+
   return (
     <div
       style={{
         display: "grid",
         placeContent: "center",
         height: "100vh",
-        gap: "0.8rem",
+        width: '100vw',
+        overflow: "hidden"
       }}
     >
       <motion.button
-        onClick={() => setIsVisible(!isVisible)}
-        className="example-button"
         layout
-      >
-        Show/Hide
-      </motion.button>
+        onClick={() => setIsVisible(!isVisible)} style={{ zIndex: 100, width: 150 }} className="example-button">{isVisible ? 'Hide' : 'Show'}</motion.button>
       <AnimatePresence mode="popLayout">
-        {isVisible && (
-          <motion.div
-            initial={{
-              rotate: "0deg",
-              scale: 0,
-              y: 0,
-            }}
-            animate={{
-              rotate: "180deg",
-              scale: 1,
-              y: [0, 150, -150, -150, 0],
-            }}
-            exit={{
-              rotate: "0deg",
-              scale: 0,
-              y: 0,
-            }}
-            transition={{
-              duration: 1,
-              ease: "backInOut",
-              times: [0, 0.25, 0.5, 0.85, 1],
-            }}
-            style={{
-              width: 150,
-              height: 150,
-              background: "black",
-            }}
-          ></motion.div>
-        )}
+        {
+          isVisible && (
+            <motion.div
+              initial={{ rotate: "0deg", scale: 1 }}
+              animate={{ rotate: "180deg", scale: 10 }}
+              transition={{
+                duration: 1,
+                type: "spring"
+
+              }}
+
+              exit={{
+                rotate: "0deg",
+                scale: 0,
+                duration: 1
+
+
+              }}
+
+              style={{
+                width: 150,
+                height: 150,
+                background: "black",
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+
+              }}
+            >
+
+            </motion.div>
+          )
+        }
       </AnimatePresence>
     </div>
   );
 };
+
 
 export default BasicsOfMotion;

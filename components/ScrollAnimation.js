@@ -1,38 +1,39 @@
-import { useScroll, motion, useSpring, useTransform } from "framer-motion";
-import React from "react";
+import { useScroll, motion, useSpring, useTransform, useInView } from "framer-motion";
+import React, { useEffect } from "react";
 
 const ScrollAnimations = () => {
+
   const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress)
 
-  const scaleX = useSpring(scrollYProgress);
+  const background = useTransform(scrollYProgress, [0, 1], ["rgb(237,20,61)", "rgb(0,255,0)"]);
 
-  const background = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ["rgb(86, 1, 245)", "rgb(1, 245, 13)"]
-  );
+
+
 
   return (
-    <div>
+    <div style={{ position: "relative" }}>
+
       <motion.div
         style={{
-          // scaleX: scrollYProgress,
-          scaleX,
+          //scaleX: scrollYProgress,
+          scaleX: scaleX,
           transformOrigin: "left",
-          // background: "blue",
-          background,
-          position: "sticky",
+          position: "fixed",
           top: 0,
+          left: 0,
           width: "100%",
           height: "20px",
-        }}
-      />
-
+          // backgroundColor: "blue",
+          backgroundColor: background,
+        }} >  </motion.div>
       <div
         style={{
           maxWidth: "700px",
           margin: "auto",
+          marginTop: "25px",
           padding: "1.2rem",
+          fontSize: "1.2em"
         }}
       >
         <p>
